@@ -81,6 +81,7 @@
     @media (max-width: 430px) {
       .cw-panel { width: calc(100vw - 28px); right: 14px; bottom: 82px; height: 70vh; }
       .cw-btn   { bottom: 14px; right: 14px; }
+      .cw-input { font-size: 16px; }
     }
 
     /* ── Header ── */
