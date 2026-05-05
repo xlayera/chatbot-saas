@@ -1,0 +1,1086 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sabores del Sur – Cocina Chilena Tradicional</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --red:    #8B0000;
+      --red-dk: #6a0000;
+      --gold:   #C9A84C;
+      --cream:  #FDF6EC;
+      --dark:   #1a1a1a;
+      --gray:   #555;
+      --light:  #f4f4f4;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: Georgia, 'Times New Roman', serif;
+      color: var(--dark);
+      background: #fff;
+    }
+
+    /* ── NAV ─────────────────────────────────────────────────── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--red);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2rem;
+      height: 64px;
+      box-shadow: 0 2px 8px rgba(0,0,0,.35);
+    }
+
+    .nav-logo {
+      font-size: 1.35rem;
+      font-weight: bold;
+      color: #fff;
+      letter-spacing: .04em;
+      text-decoration: none;
+    }
+
+    .nav-logo span { color: var(--gold); }
+
+    nav ul {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    nav ul a {
+      color: rgba(255,255,255,.85);
+      text-decoration: none;
+      font-family: system-ui, sans-serif;
+      font-size: .9rem;
+      letter-spacing: .05em;
+      text-transform: uppercase;
+      transition: color .2s;
+    }
+
+    nav ul a:hover { color: var(--gold); }
+
+    .nav-reserve {
+      background: var(--gold);
+      color: var(--red-dk) !important;
+      font-weight: 700 !important;
+      padding: .45rem 1.1rem;
+      border-radius: 4px;
+      transition: background .2s !important;
+    }
+
+    .nav-reserve:hover { background: #e0b84e !important; color: var(--red-dk) !important; }
+
+    /* ── HERO ────────────────────────────────────────────────── */
+    .hero {
+      position: relative;
+      height: 92vh;
+      min-height: 520px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      overflow: hidden;
+      background: var(--dark);
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(rgba(0,0,0,.52), rgba(0,0,0,.52)),
+        url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=1400&auto=format&fit=crop&q=80')
+        center/cover no-repeat;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      padding: 0 1.5rem;
+    }
+
+    .hero-tag {
+      display: inline-block;
+      background: var(--gold);
+      color: var(--red-dk);
+      font-family: system-ui, sans-serif;
+      font-size: .75rem;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      padding: .3rem .9rem;
+      border-radius: 2px;
+      margin-bottom: 1.2rem;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.2rem, 6vw, 4.2rem);
+      color: #fff;
+      line-height: 1.1;
+      margin-bottom: .8rem;
+    }
+
+    .hero h1 em {
+      color: var(--gold);
+      font-style: normal;
+    }
+
+    .hero p {
+      font-family: system-ui, sans-serif;
+      color: rgba(255,255,255,.8);
+      font-size: 1.1rem;
+      max-width: 540px;
+      margin: 0 auto 2rem;
+      line-height: 1.6;
+    }
+
+    .hero-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+
+    .btn-primary {
+      background: var(--red);
+      color: #fff;
+      border: 2px solid var(--red);
+      padding: .75rem 2rem;
+      font-family: system-ui, sans-serif;
+      font-size: .95rem;
+      font-weight: 600;
+      border-radius: 4px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background .2s, border-color .2s;
+      display: inline-block;
+    }
+
+    .btn-primary:hover { background: var(--red-dk); border-color: var(--red-dk); }
+
+    .btn-outline {
+      background: transparent;
+      color: #fff;
+      border: 2px solid rgba(255,255,255,.6);
+      padding: .75rem 2rem;
+      font-family: system-ui, sans-serif;
+      font-size: .95rem;
+      font-weight: 600;
+      border-radius: 4px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: border-color .2s, color .2s;
+      display: inline-block;
+    }
+
+    .btn-outline:hover { border-color: #fff; color: #fff; }
+
+    .scroll-hint {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      color: rgba(255,255,255,.5);
+      font-family: system-ui, sans-serif;
+      font-size: .75rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: .4rem;
+    }
+
+    .scroll-hint::after {
+      content: '';
+      width: 1px;
+      height: 40px;
+      background: rgba(255,255,255,.3);
+      animation: scrollPulse 2s ease-in-out infinite;
+    }
+
+    @keyframes scrollPulse {
+      0%, 100% { opacity: .3; }
+      50%       { opacity: 1; }
+    }
+
+    /* ── SECTION BASE ────────────────────────────────────────── */
+    section { padding: 5rem 1.5rem; }
+
+    .container { max-width: 1100px; margin: 0 auto; }
+
+    .section-label {
+      font-family: system-ui, sans-serif;
+      font-size: .75rem;
+      font-weight: 700;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: .5rem;
+    }
+
+    h2 {
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      line-height: 1.15;
+      margin-bottom: 1rem;
+    }
+
+    .section-lead {
+      font-family: system-ui, sans-serif;
+      color: var(--gray);
+      font-size: 1.05rem;
+      line-height: 1.7;
+      max-width: 640px;
+      margin-bottom: 3rem;
+    }
+
+    /* ── ABOUT ───────────────────────────────────────────────── */
+    #nosotros {
+      background: var(--cream);
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+
+    @media (max-width: 768px) {
+      .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    }
+
+    .about-img {
+      width: 100%;
+      height: 420px;
+      object-fit: cover;
+      border-radius: 4px;
+      box-shadow: 8px 8px 0 var(--gold);
+    }
+
+    .about-text h2 { margin-bottom: .75rem; }
+
+    .about-badges {
+      display: flex;
+      gap: .8rem;
+      flex-wrap: wrap;
+      margin-top: 2rem;
+    }
+
+    .badge {
+      display: flex;
+      align-items: center;
+      gap: .4rem;
+      background: #fff;
+      border: 1px solid #e0d5c5;
+      border-radius: 999px;
+      padding: .35rem 1rem;
+      font-family: system-ui, sans-serif;
+      font-size: .82rem;
+      color: var(--gray);
+    }
+
+    .badge span { font-size: 1rem; }
+
+    /* ── MENU ────────────────────────────────────────────────── */
+    #menu { background: #fff; }
+
+    .menu-tabs {
+      display: flex;
+      gap: .5rem;
+      flex-wrap: wrap;
+      margin-bottom: 2.5rem;
+    }
+
+    .tab-btn {
+      background: none;
+      border: 1px solid #ddd;
+      border-radius: 999px;
+      padding: .45rem 1.2rem;
+      font-family: system-ui, sans-serif;
+      font-size: .85rem;
+      cursor: pointer;
+      transition: background .2s, color .2s, border-color .2s;
+      color: var(--gray);
+    }
+
+    .tab-btn.active {
+      background: var(--red);
+      border-color: var(--red);
+      color: #fff;
+    }
+
+    .menu-section { display: none; }
+    .menu-section.active { display: grid; }
+
+    .menu-grid {
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .menu-card {
+      border: 1px solid #e8e8e8;
+      border-radius: 8px;
+      overflow: hidden;
+      transition: box-shadow .2s, transform .2s;
+    }
+
+    .menu-card:hover {
+      box-shadow: 0 6px 24px rgba(0,0,0,.1);
+      transform: translateY(-3px);
+    }
+
+    .menu-card-body { padding: 1.1rem 1.2rem 1.2rem; }
+
+    .menu-card-emoji {
+      font-size: 2rem;
+      margin-bottom: .5rem;
+      display: block;
+    }
+
+    .menu-card h3 {
+      font-size: 1rem;
+      margin-bottom: .3rem;
+    }
+
+    .menu-card p {
+      font-family: system-ui, sans-serif;
+      font-size: .82rem;
+      color: var(--gray);
+      line-height: 1.5;
+      margin-bottom: .8rem;
+    }
+
+    .menu-price {
+      font-family: system-ui, sans-serif;
+      font-size: .95rem;
+      font-weight: 700;
+      color: var(--red);
+    }
+
+    /* ── FEATURES ────────────────────────────────────────────── */
+    #servicios { background: var(--light); }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+      gap: 2rem;
+    }
+
+    .feature-card {
+      background: #fff;
+      border-radius: 8px;
+      padding: 2rem 1.5rem;
+      text-align: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,.06);
+    }
+
+    .feature-icon { font-size: 2.2rem; margin-bottom: 1rem; }
+
+    .feature-card h3 {
+      font-size: 1rem;
+      margin-bottom: .5rem;
+    }
+
+    .feature-card p {
+      font-family: system-ui, sans-serif;
+      font-size: .85rem;
+      color: var(--gray);
+      line-height: 1.6;
+    }
+
+    /* ── GALLERY ─────────────────────────────────────────────── */
+    #galeria { background: #fff; }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: repeat(2, 220px);
+      gap: .75rem;
+    }
+
+    @media (max-width: 640px) {
+      .gallery-grid { grid-template-columns: 1fr 1fr; grid-template-rows: repeat(3, 180px); }
+    }
+
+    .gallery-grid img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 4px;
+      transition: transform .35s, filter .35s;
+    }
+
+    .gallery-grid img:hover { transform: scale(1.04); filter: brightness(1.08); }
+    .gallery-grid img:first-child { grid-row: span 2; }
+
+    /* ── CONTACT ─────────────────────────────────────────────── */
+    #contacto {
+      background: var(--cream);
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: start;
+    }
+
+    @media (max-width: 768px) {
+      .contact-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    }
+
+    .contact-info h2 { margin-bottom: 1rem; }
+
+    .contact-items { margin-top: 1.5rem; display: flex; flex-direction: column; gap: 1.2rem; }
+
+    .contact-item {
+      display: flex;
+      align-items: flex-start;
+      gap: .9rem;
+      font-family: system-ui, sans-serif;
+      font-size: .92rem;
+      line-height: 1.5;
+    }
+
+    .contact-item-icon {
+      font-size: 1.4rem;
+      flex-shrink: 0;
+      margin-top: .05rem;
+    }
+
+    .contact-item strong { display: block; font-weight: 600; color: var(--dark); }
+    .contact-item span   { color: var(--gray); }
+
+    .hours-table { width: 100%; border-collapse: collapse; margin-top: .5rem; }
+    .hours-table td {
+      padding: .25rem 0;
+      font-family: system-ui, sans-serif;
+      font-size: .88rem;
+      color: var(--gray);
+    }
+    .hours-table td:last-child { text-align: right; font-weight: 500; color: var(--dark); }
+
+    .contact-form-wrapper {
+      background: #fff;
+      border-radius: 8px;
+      padding: 2.5rem;
+      box-shadow: 0 4px 16px rgba(0,0,0,.08);
+    }
+
+    .contact-form-wrapper h3 { margin-bottom: 1.5rem; font-size: 1.3rem; }
+
+    .form-group { margin-bottom: 1.2rem; }
+
+    .form-group label {
+      display: block;
+      font-family: system-ui, sans-serif;
+      font-size: .82rem;
+      font-weight: 600;
+      margin-bottom: .4rem;
+      color: var(--dark);
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: .6rem .85rem;
+      border: 1px solid #d0d0d0;
+      border-radius: 5px;
+      font-family: system-ui, sans-serif;
+      font-size: .9rem;
+      color: var(--dark);
+      transition: border-color .2s;
+      outline: none;
+      resize: vertical;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus { border-color: var(--red); }
+
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+
+    .form-submit {
+      background: var(--red);
+      color: #fff;
+      border: none;
+      padding: .75rem 2rem;
+      font-family: system-ui, sans-serif;
+      font-size: .95rem;
+      font-weight: 600;
+      border-radius: 5px;
+      cursor: pointer;
+      width: 100%;
+      transition: background .2s;
+    }
+
+    .form-submit:hover { background: var(--red-dk); }
+
+    /* ── FOOTER ──────────────────────────────────────────────── */
+    footer {
+      background: var(--dark);
+      color: rgba(255,255,255,.65);
+      padding: 3.5rem 1.5rem 2rem;
+    }
+
+    .footer-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 3rem;
+      margin-bottom: 3rem;
+    }
+
+    @media (max-width: 640px) {
+      .footer-inner { grid-template-columns: 1fr; gap: 2rem; }
+    }
+
+    .footer-brand .nav-logo { font-size: 1.2rem; }
+
+    .footer-brand p {
+      font-family: system-ui, sans-serif;
+      font-size: .85rem;
+      line-height: 1.7;
+      margin-top: .9rem;
+      max-width: 280px;
+    }
+
+    .footer-col h4 {
+      color: #fff;
+      font-family: system-ui, sans-serif;
+      font-size: .8rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: .55rem; }
+
+    .footer-col ul a {
+      color: rgba(255,255,255,.55);
+      text-decoration: none;
+      font-family: system-ui, sans-serif;
+      font-size: .88rem;
+      transition: color .2s;
+    }
+
+    .footer-col ul a:hover { color: var(--gold); }
+
+    .footer-divider {
+      border: none;
+      border-top: 1px solid rgba(255,255,255,.1);
+      max-width: 1100px;
+      margin: 0 auto 1.5rem;
+    }
+
+    .footer-bottom {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: system-ui, sans-serif;
+      font-size: .8rem;
+      color: rgba(255,255,255,.35);
+      flex-wrap: wrap;
+      gap: .5rem;
+    }
+
+    .footer-bottom a { color: var(--gold); text-decoration: none; }
+  </style>
+</head>
+<body>
+
+  <!-- ── NAV ─────────────────────────────────────── -->
+  <nav>
+    <a class="nav-logo" href="#">Sabores <span>del Sur</span></a>
+    <ul>
+      <li><a href="#nosotros">Nosotros</a></li>
+      <li><a href="#menu">Menú</a></li>
+      <li><a href="#galeria">Galería</a></li>
+      <li><a href="#contacto">Contacto</a></li>
+      <li><a href="#contacto" class="nav-reserve">Reservar</a></li>
+    </ul>
+  </nav>
+
+  <!-- ── HERO ────────────────────────────────────── -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-content">
+      <div class="hero-tag">🇨🇱 Cocina chilena tradicional · Providencia, Santiago</div>
+      <h1>La mesa de tu<br><em>abuela hecha restaurante</em></h1>
+      <p>Sabores auténticos del sur de Chile preparados cada día con ingredientes frescos y mucho cariño. Ven a comer como en casa.</p>
+      <div class="hero-btns">
+        <a href="#menu" class="btn-primary">Ver menú completo</a>
+        <a href="#contacto" class="btn-outline">Hacer una reserva</a>
+      </div>
+    </div>
+    <div class="scroll-hint">Descubre más</div>
+  </section>
+
+  <!-- ── ABOUT ────────────────────────────────────── -->
+  <section id="nosotros">
+    <div class="container">
+      <div class="about-grid">
+        <img class="about-img"
+          src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=700&auto=format&fit=crop&q=80"
+          alt="Interior del restaurante Sabores del Sur" loading="lazy" />
+        <div class="about-text">
+          <p class="section-label">Nuestra historia</p>
+          <h2>Treinta años alimentando a Providencia</h2>
+          <p class="section-lead">
+            Fundado en 1994 por la familia Mardones, Sabores del Sur nació con una misión sencilla:
+            llevar a la ciudad la cocina que se hacía con leña en el campo. Cazuelas largas, empanadas
+            de horno y postres caseros que no se encuentran en ninguna carta de autor.
+          </p>
+          <p class="section-lead" style="margin-bottom:0">
+            Hoy somos el mismo lugar de siempre, en Av. Providencia 1234, con la misma receta y
+            el mismo cariño. Solo reservamos los fines de semana — entre semana, ven nomás.
+          </p>
+          <div class="about-badges">
+            <div class="badge"><span>🏆</span> Premio Sabor Chileno 2022</div>
+            <div class="badge"><span>🌿</span> Ingredientes locales</div>
+            <div class="badge"><span>🐾</span> Pet-friendly en terraza</div>
+            <div class="badge"><span>🌾</span> Opciones sin gluten</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── MENU ────────────────────────────────────── -->
+  <section id="menu">
+    <div class="container">
+      <p class="section-label">Lo que servimos</p>
+      <h2>Menú de temporada</h2>
+      <p class="section-lead">Precios en pesos chilenos (CLP). Todos los platos incluyen pan y pebre.</p>
+
+      <div class="menu-tabs">
+        <button class="tab-btn active" onclick="showTab('entradas',this)">Entradas</button>
+        <button class="tab-btn" onclick="showTab('fondos',this)">Platos de fondo</button>
+        <button class="tab-btn" onclick="showTab('postres',this)">Postres</button>
+        <button class="tab-btn" onclick="showTab('bebidas',this)">Bebidas</button>
+      </div>
+
+      <!-- Entradas -->
+      <div class="menu-section menu-grid active" id="entradas">
+        <div class="menu-card">
+          <div class="menu-card-body">
+            <span class="menu-card-emoji">🥟</span>
+            <h3>Empanada de pino</h3>
+            <p>Rellena con carne molida, cebolla, aceitunas, huevo duro y pasas. Horneada al momento.</p>
+            <span class="menu-price">$2.500 c/u</span>
+          </div>
+        </div>
+        <div class="menu-card">
+          <div class="menu-card-body">
+            <span class="menu-card-emoji">🧀</span>
+            <h3>Empanada de queso</h3>
+            <p>Queso mantecoso derretido, perfecto para los que prefieren sin carne.</p>
+            <span class="menu-price">$2.000 c/u</span>
+          </div>
+        </div>
+        <div class="menu-card">
+          <div class="menu-card-body">
+            <span class="menu-card-emoji">🦐</span>
+            <h3>Empanada de mariscos</h3>
+            <p>Mix de mariscos del día con cebolla y merkén. Edición de temporada.</p>
+            <span class="menu-price">$3.000 c/u</span>
+          </div>
+        </div>
+        <div class="menu-card">
+          <div class="menu-card-body">
+            <span class="menu-card-emoji">🌽</span>
+            <h3>Humitas</h3>
+            <p>Choclo fresco molido, envuelto en hoja y cocido al vapor. Receta de la abuela Mardones.</p>
+            <span class="menu-price">$2.500 c/u</span>
+          </div>
+        </div>
+        <div class="menu-card">
+          <div class="menu-card-body">
+            <span class="menu-card-emoji">🥣</span>
+            <h3>Pebre con marraqueta</h3>
+            <p>Pebre casero con cilantro fresco, tomate, merkén y ají. Pan marraqueta recién horneado.</p>
+            <span class="menu-price">$1.500</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Platos de fondo -->
+      <div class="menu-section menu-grid" id="fondos">
+        <div class="menu-card">
+          <div class="menu-card-body">
+            <span class="menu-card-emoji">🍲</span>
+            <h3>Cazuela de vacuno</h3>
+            <p>Caldo largo con osobuco, papa, zapallo, choclo y arroz. Se sirve en fuente de greda.</p>
+            <span class="menu-price">$8.500</span>
+          </div>
+        </div>
+        <div class="menu-card">
+          <div class="menu-card-body">
+            <span class="menu-card-emoji">🍗</span>
+            <h3>Cazuela de ave</h3>
+            <p>Pechuga y muslo de pollo con verduras de estación. Versión más liviana y igual de sabrosa.</p>
+            <span class="menu-price">$8.000</span>
+          </div>
+        </div>
+        <div class="menu-card">
+          <div class="menu-card-body">
+            <span class="menu-card-emoji">🫕</span>
+            <h3>Pastel de choclo</h3>
+            <p>Pino tradicional cubierto con costra de choclo dorada al horno. El ícono de la carta.</p>
+            <span class="menu-price">$8.000</span>
+          </div>
+        </div>
+        <div class="menu-card">
+          <div class="menu-card-body">
+            <span class="menu-card-emoji">🥘</span>
+            <h3>Charquicán</h3>
+            <p>Guiso de zapallo, papas, porotos y charqui desmenuzado. Con huevo frito encima.</p>
+            <span class="menu-price">$7.000</span>
+          </div>
+        </div>
+        <div class="menu-card">
+          <div class="menu-card-body">
+            <span class="menu-card-emoji">🥩</span>
+            <h3>Lomo a lo pobre</h3>
+            <p>Filete de lomo con papas fritas, huevo frito y cebolla caramelizada. Contundente.</p>
+            <span class="menu-price">$11.500</span>
+          </div>
+        </div>
+        <div class="menu-card">
+          <div class="menu-card-body">
+            <span class="menu-card-emoji">🐟</span>
+            <h3>Reineta a la plancha</h3>
+            <p>Reineta fresca del día a la plancha con limón, aceite de oliva y ensalada chilena.</p>
+            <span class="menu-price">$10.500</span>
+          </div>
+        </div>
+        <div class="menu-card">
+          <div class="menu-card-body">
+            <span class="menu-card-emoji">🫙</span>
+            <h3>Porotos con riendas</h3>
+            <p>Porotos cremosos con tallarines y longaniza ahumada. Plato de invierno por excelencia.</p>
+            <span class="menu-price">$6.500</span>
+          </div>
+        </div>
+        <div class="menu-card">
+          <div class="menu-card-body">
+            <span class="menu-card-emoji">🥩</span>
+            <h3>Asado de tira (porción)</h3>
+            <p>Costillar a las brasas con ensalada y papas cocidas. Para compartir o comer solo.</p>
+            <span class="menu-price">$13.000</span>
+          </div>
+        </div>
+        <div class="menu-card">
+          <div class="menu-card-body">
+            <span class="menu-card-emoji">🐚</span>
+            <h3>Machas a la parmesana</h3>
+            <p>Machas con queso parmesano y mantequilla, gratinadas al horno. Clásico de mar.</p>
+            <span class="menu-price">$9.500</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Postres -->
+      <div class="menu-section menu-grid" id="postres">
+        <div class="menu-card">
+          <div class="menu-card-body">
+            <span class="menu-card-emoji">🍮</span>
+            <h3>Leche asada</h3>
+            <p>Postre casero horneado, suave y cremoso. Con caramelo artesanal en la base.</p>
+            <span class="menu-price">$3.000</span>
+          </div>
+        </div>
+        <div class="menu-card">
+          <div class="menu-card-body">
+            <span class="menu-card-emoji">🎂</span>
+            <h3>Brazo de reina</h3>
+            <p>Pionono relleno con manjar y mermelada. Clásico de las onces chilenas.</p>
+            <span class="menu-price">$2.500</span>
+          </div>
+        </div>
+        <div class="menu-card">
+          <div class="menu-card-body">
+            <span class="menu-card-emoji">🫓</span>
+            <h3>Sopaipillas con pebre</h3>
+            <p>Sopaipillas de zapallo recién fritas con pebre casero para mojar.</p>
+            <span class="menu-price">$2.000</span>
+          </div>
+        </div>
+        <div class="menu-card">
+          <div class="menu-card-body">
+            <span class="menu-card-emoji">🍨</span>
+            <h3>Helado artesanal</h3>
+            <p>Dos bochas de helado de sabores chilenos: lúcuma, chirimoya o manjar. Cambia según temporada.</p>
+            <span class="menu-price">$2.500</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bebidas -->
+      <div class="menu-section menu-grid" id="bebidas">
+        <div class="menu-card">
+          <div class="menu-card-body">
+            <span class="menu-card-emoji">🍷</span>
+            <h3>Vino de la casa</h3>
+            <p>Vino tinto o blanco de viña del Valle del Maule. Joven y fácil de tomar.</p>
+            <span class="menu-price">$3.500 copa / $12.000 botella</span>
+          </div>
+        </div>
+        <div class="menu-card">
+          <div class="menu-card-body">
+            <span class="menu-card-emoji">🍺</span>
+            <h3>Cerveza artesanal</h3>
+            <p>Cerveza negra o rubia de microcervecería local. Rota según disponibilidad.</p>
+            <span class="menu-price">$4.000</span>
+          </div>
+        </div>
+        <div class="menu-card">
+          <div class="menu-card-body">
+            <span class="menu-card-emoji">🌊</span>
+            <h3>Terremoto</h3>
+            <p>Pipeño blanco, helado de piña y granadina. La bebida chilena de las fiestas patrias.</p>
+            <span class="menu-price">$4.500 vaso</span>
+          </div>
+        </div>
+        <div class="menu-card">
+          <div class="menu-card-body">
+            <span class="menu-card-emoji">🍇</span>
+            <h3>Chicha de uva</h3>
+            <p>Chicha casera de uva tinta, artesanal y sin conservantes. Temporada Septiembre–Diciembre.</p>
+            <span class="menu-price">$2.500</span>
+          </div>
+        </div>
+        <div class="menu-card">
+          <div class="menu-card-body">
+            <span class="menu-card-emoji">🧃</span>
+            <h3>Jugo natural</h3>
+            <p>Naranja, limón, piña o melón según temporada. Exprimido al momento.</p>
+            <span class="menu-price">$2.500</span>
+          </div>
+        </div>
+        <div class="menu-card">
+          <div class="menu-card-body">
+            <span class="menu-card-emoji">💧</span>
+            <h3>Agua mineral</h3>
+            <p>Con o sin gas, botella de 500ml.</p>
+            <span class="menu-price">$1.500</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── SERVICES ─────────────────────────────────── -->
+  <section id="servicios">
+    <div class="container">
+      <p class="section-label">Cómo trabajamos</p>
+      <h2>Todo lo que necesitas saber</h2>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">📅</div>
+          <h3>Reservas</h3>
+          <p>Por teléfono o email. Grupos de 6 o más personas deben reservar con 24 h de anticipación.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🛵</div>
+          <h3>Delivery</h3>
+          <p>No tenemos servicio propio, pero puedes pedirnos por Rappi y PedidosYa todos los días.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">💳</div>
+          <h3>Medios de pago</h3>
+          <p>Aceptamos efectivo, débito, crédito y Transbank. No aceptamos cheques.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🐾</div>
+          <h3>Mascotas</h3>
+          <p>Bienvenidas en nuestra terraza exterior. El interior está reservado para personas.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🌾</div>
+          <h3>Alergias</h3>
+          <p>Cuéntale a tu mesero. Tenemos opciones sin gluten disponibles a pedido especial.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🅿️</div>
+          <h3>Estacionamiento</h3>
+          <p>No contamos con estacionamiento propio. Hay playas públicas a media cuadra del local.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── GALLERY ──────────────────────────────────── -->
+  <section id="galeria">
+    <div class="container">
+      <p class="section-label">Galería</p>
+      <h2>Así es Sabores del Sur</h2>
+      <p class="section-lead">Un vistazo a nuestra cocina, nuestros platos y los rincones del local.</p>
+      <div class="gallery-grid">
+        <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=600&auto=format&fit=crop&q=80"
+             alt="Interior del restaurante" loading="lazy" />
+        <img src="https://images.unsplash.com/photo-1547592180-85f173990554?w=600&auto=format&fit=crop&q=80"
+             alt="Cazuela chilena" loading="lazy" />
+        <img src="https://images.unsplash.com/photo-1565958011703-44f9829ba187?w=600&auto=format&fit=crop&q=80"
+             alt="Empanadas" loading="lazy" />
+        <img src="https://images.unsplash.com/photo-1482049016688-2d3e1b311543?w=600&auto=format&fit=crop&q=80"
+             alt="Plato del día" loading="lazy" />
+        <img src="https://images.unsplash.com/photo-1559339352-11d035aa65de?w=600&auto=format&fit=crop&q=80"
+             alt="Vino y copa" loading="lazy" />
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CONTACT ──────────────────────────────────── -->
+  <section id="contacto">
+    <div class="container">
+      <div class="contact-grid">
+        <div class="contact-info">
+          <p class="section-label">Encuéntranos</p>
+          <h2>¿Dónde estamos<br>y cuándo abrimos?</h2>
+          <p class="section-lead">Visítanos en Providencia o escríbenos. El asistente virtual también puede ayudarte — está en la esquina inferior derecha 👉</p>
+          <div class="contact-items">
+            <div class="contact-item">
+              <span class="contact-item-icon">📍</span>
+              <div>
+                <strong>Dirección</strong>
+                <span>Av. Providencia 1234, Providencia, Santiago</span>
+              </div>
+            </div>
+            <div class="contact-item">
+              <span class="contact-item-icon">📞</span>
+              <div>
+                <strong>Teléfono</strong>
+                <span>+56 2 2345 6789</span>
+              </div>
+            </div>
+            <div class="contact-item">
+              <span class="contact-item-icon">✉️</span>
+              <div>
+                <strong>Email</strong>
+                <span>contacto@saboresdelsur.cl</span>
+              </div>
+            </div>
+            <div class="contact-item">
+              <span class="contact-item-icon">🕐</span>
+              <div>
+                <strong>Horario de atención</strong>
+                <table class="hours-table">
+                  <tr><td>Lunes – Viernes</td><td>12:00 – 22:00</td></tr>
+                  <tr><td>Sábados</td><td>12:00 – 23:00</td></tr>
+                  <tr><td>Domingos y festivos</td><td>12:00 – 21:00</td></tr>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="contact-form-wrapper">
+          <h3>Reserva tu mesa</h3>
+          <form onsubmit="handleReserva(event)">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="nombre">Nombre</label>
+                <input type="text" id="nombre" placeholder="Juan Pérez" required />
+              </div>
+              <div class="form-group">
+                <label for="telefono">Teléfono</label>
+                <input type="tel" id="telefono" placeholder="+56 9 1234 5678" required />
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="fecha">Fecha</label>
+                <input type="date" id="fecha" required />
+              </div>
+              <div class="form-group">
+                <label for="personas">Personas</label>
+                <select id="personas">
+                  <option>1</option><option>2</option><option>3</option>
+                  <option>4</option><option>5</option><option value="6+">6 o más</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="nota">Nota especial (opcional)</label>
+              <textarea id="nota" rows="3" placeholder="Alergias, celebraciones, preferencia de mesa…"></textarea>
+            </div>
+            <button type="submit" class="form-submit">Solicitar reserva</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FOOTER ───────────────────────────────────── -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <a class="nav-logo" href="#">Sabores <span>del Sur</span></a>
+        <p>Cocina chilena tradicional desde 1994. Hecha con amor en Providencia, Santiago de Chile.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Menú</h4>
+        <ul>
+          <li><a href="#menu">Entradas</a></li>
+          <li><a href="#menu">Platos de fondo</a></li>
+          <li><a href="#menu">Postres</a></li>
+          <li><a href="#menu">Bebidas</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Restaurante</h4>
+        <ul>
+          <li><a href="#nosotros">Nuestra historia</a></li>
+          <li><a href="#servicios">Servicios</a></li>
+          <li><a href="#galeria">Galería</a></li>
+          <li><a href="#contacto">Reservas</a></li>
+        </ul>
+      </div>
+    </div>
+    <hr class="footer-divider" />
+    <div class="footer-bottom">
+      <span>© 2024 Sabores del Sur · Todos los derechos reservados</span>
+      <span>Desarrollado con <a href="#">ChatBot SaaS</a></span>
+    </div>
+  </footer>
+
+  <!-- ── JS ───────────────────────────────────────── -->
+  <script>
+    function showTab(id, btn) {
+      document.querySelectorAll('.menu-section').forEach(s => s.classList.remove('active'));
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+      btn.classList.add('active');
+    }
+
+    function handleReserva(e) {
+      e.preventDefault();
+      const btn = e.target.querySelector('.form-submit');
+      btn.textContent = '✅ Solicitud enviada';
+      btn.disabled = true;
+      setTimeout(() => { btn.textContent = 'Solicitar reserva'; btn.disabled = false; }, 3000);
+    }
+  </script>
+
+  <!-- ── CHAT WIDGET ──────────────────────────────── -->
+  <script src="./widget/chat-widget.js"
+    data-client="demo-restaurant"
+    data-backend="https://TU-BACKEND-URL.com"
+    data-name="Sabores del Sur"
+    data-color="#8B0000"
+    data-emoji="🍽️"
+    data-welcome="¡Hola! Soy el asistente virtual de Sabores del Sur 🍽️ ¿Tienes alguna pregunta sobre nuestro menú, horarios o reservas?"
+  ></script>
+
+</body>
+</html>
