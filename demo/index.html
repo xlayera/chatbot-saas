@@ -593,13 +593,77 @@
     }
 
     .footer-bottom a { color: var(--gold); text-decoration: none; }
+
+    /* ── HAMBURGER ───────────────────────────────────────────── */
+    .nav-hamburger {
+      display: none;
+      background: none;
+      border: none;
+      color: #fff;
+      cursor: pointer;
+      padding: 6px;
+      flex-direction: column;
+      gap: 5px;
+    }
+    .nav-hamburger span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: #fff;
+      border-radius: 2px;
+      transition: transform .25s, opacity .25s;
+    }
+    nav.nav-open .nav-hamburger span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    nav.nav-open .nav-hamburger span:nth-child(2) { opacity: 0; }
+    nav.nav-open .nav-hamburger span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* ── MOBILE ──────────────────────────────────────────────── */
+    @media (max-width: 768px) {
+      .nav-hamburger { display: flex; }
+
+      nav ul {
+        display: none;
+        position: absolute;
+        top: 64px; left: 0; right: 0;
+        background: var(--red-dk);
+        flex-direction: column;
+        gap: 0;
+        padding: .5rem 0 1rem;
+        box-shadow: 0 6px 16px rgba(0,0,0,.3);
+        z-index: 99;
+      }
+      nav ul a { display: block; padding: .75rem 2rem; }
+      nav ul li:last-child a {
+        margin: .5rem 2rem 0;
+        text-align: center;
+      }
+      nav.nav-open ul { display: flex; }
+
+      section { padding: 3rem 1.2rem; }
+
+      .about-img { height: 260px; box-shadow: 4px 4px 0 var(--gold); }
+
+      .form-row { grid-template-columns: 1fr; }
+      .contact-form-wrapper { padding: 1.5rem 1.2rem; }
+
+      .gallery-grid {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: repeat(3, 160px);
+      }
+      .gallery-grid img:first-child { grid-row: span 1; }
+
+      .hero { min-height: 100svh; }
+    }
   </style>
 </head>
 <body>
 
   <!-- ── NAV ─────────────────────────────────────── -->
-  <nav>
+  <nav id="main-nav">
     <a class="nav-logo" href="#">Sabores <span>del Sur</span></a>
+    <button class="nav-hamburger" aria-label="Abrir menú" onclick="toggleNav()">
+      <span></span><span></span><span></span>
+    </button>
     <ul>
       <li><a href="#nosotros">Nosotros</a></li>
       <li><a href="#menu">Menú</a></li>
@@ -1062,6 +1126,16 @@
       document.getElementById(id).classList.add('active');
       btn.classList.add('active');
     }
+
+    const mainNav = document.getElementById('main-nav');
+
+    function toggleNav() {
+      mainNav.classList.toggle('nav-open');
+    }
+
+    document.querySelectorAll('nav ul a').forEach(a => {
+      a.addEventListener('click', () => mainNav.classList.remove('nav-open'));
+    });
 
     function handleReserva(e) {
       e.preventDefault();
