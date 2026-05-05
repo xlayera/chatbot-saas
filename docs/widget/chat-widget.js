@@ -383,6 +383,15 @@
 
   sendBtn.addEventListener('click', send);
 
+  // Reset iOS viewport zoom after textarea loses focus
+  textarea.addEventListener('blur', () => {
+    const vp = document.querySelector('meta[name="viewport"]');
+    if (!vp) return;
+    const original = vp.getAttribute('content');
+    vp.setAttribute('content', original + ', maximum-scale=1');
+    setTimeout(() => vp.setAttribute('content', original), 300);
+  });
+
   // Close panel when clicking outside
   document.addEventListener('click', e => {
     if (isOpen && !wrap.contains(e.target)) openPanel(false);
